@@ -22,7 +22,7 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate,UINavigat
         NSStrokeColorAttributeName : UIColor(white: 0, alpha: 1),
         NSForegroundColorAttributeName : UIColor(white: 1, alpha: 1),         // white fill
         NSFontAttributeName : UIFont(name: "HelveticaNeue-CondensedBlack", size: 40)!,
-        NSStrokeWidthAttributeName : 3
+        NSStrokeWidthAttributeName : -3
     ]
     
     override func viewWillAppear(animated: Bool) {
@@ -30,7 +30,7 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate,UINavigat
 
         bottomTextField.defaultTextAttributes = memeTextAttributes
         topTextField.defaultTextAttributes = memeTextAttributes
-
+   
         bottomTextField.delegate = self
         topTextField.delegate = self
         
@@ -99,6 +99,8 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate,UINavigat
          imagePicker.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
         imagePicker.delegate = self
         self.presentViewController(imagePicker, animated: true, completion: nil)
+        
+        
     }
     
     func imagePickerControllerDidCancel(picker: UIImagePickerController) {
@@ -108,6 +110,9 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate,UINavigat
     func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage, editingInfo: [String : AnyObject]?) {
         imageView.image = image
         self.dismissViewControllerAnimated(true, completion: nil)
+   
+        bottomTextField.text = "BOTTOM"
+        topTextField.text = "TOP"
         
     }
 
@@ -116,6 +121,7 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate,UINavigat
         imagePicker.sourceType = UIImagePickerControllerSourceType.Camera
         imagePicker.delegate = self
         self.presentViewController(imagePicker, animated: true, completion: nil)
+        
     }
     
     func getKeyboardHeight(notification : NSNotification) -> CGFloat {
