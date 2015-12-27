@@ -18,15 +18,22 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate,UINavigat
     var userEnteredTextBottom : String?
     
     let memeTextAttributes = [
-//        NSStrokeColorAttributeName : UIColor(red: 1, green: 1, blue: 1, alpha: 1),
-//        NSForegroundColorAttributeName :UIColor(red: 1,green: 1, blue: 1, alpha: 1),
+        // black outline
+        NSStrokeColorAttributeName : UIColor(white: 0, alpha: 1),
+        NSForegroundColorAttributeName : UIColor(white: 1, alpha: 1),         // white fill
         NSFontAttributeName : UIFont(name: "HelveticaNeue-CondensedBlack", size: 40)!,
-        NSStrokeWidthAttributeName : 2
+        NSStrokeWidthAttributeName : 3
     ]
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
- 
+
+        bottomTextField.defaultTextAttributes = memeTextAttributes
+        topTextField.defaultTextAttributes = memeTextAttributes
+
+        bottomTextField.delegate = self
+        topTextField.delegate = self
+        
         cameraButton.enabled = UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera)
  
         subscribeToKeyboardNotifications()
@@ -47,17 +54,10 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate,UINavigat
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        topTextField.text = "Top"
-        topTextField.textAlignment = .Center
-
-        bottomTextField.text = "Bottom"
-        bottomTextField.textAlignment = .Center
+    
         
-        bottomTextField.delegate = self
-        topTextField.delegate = self
         
-        bottomTextField.defaultTextAttributes = memeTextAttributes
-        topTextField.defaultTextAttributes = memeTextAttributes
+        
         
     }
     func textFieldDidBeginEditing(textField: UITextField) {
@@ -127,6 +127,7 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate,UINavigat
     
     func keyboardWillHide(notification : NSNotification){
         if bottomTextField.isFirstResponder(){
+            
             self.view.frame.origin.y += getKeyboardHeight(notification)
         }
     }
