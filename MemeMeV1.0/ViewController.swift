@@ -14,6 +14,12 @@ struct Meme {
     let bottomText : String
     let image : UIImage
     let memedImage : UIImage
+    
+    func save(){
+        UIImageWriteToSavedPhotosAlbum(memedImage, nil,nil,nil)
+    }
+    
+
 }
 
 class ViewController: UIViewController,UIImagePickerControllerDelegate,UINavigationControllerDelegate, UITextFieldDelegate {
@@ -42,9 +48,11 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate,UINavigat
     }
     
     @IBAction func share(sender: AnyObject) {
-        let meme = save()
+       let meme = Meme( topText: topTextField.text!, bottomText : bottomTextField.text!, image:
+            imageView.image!, memedImage : generate_memedImage())
         let activityController = UIActivityViewController(activityItems: [meme.memedImage], applicationActivities: nil)
-        self.presentViewController(activityController, animated: true, completion: nil)
+        self.presentViewController(activityController, animated: true, completion: meme.save)
+
     }
     
     
@@ -119,13 +127,6 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate,UINavigat
         
     }
     
-    
-    func save() -> Meme{
-        //Create the meme
-        let meme = Meme( topText: topTextField.text!, bottomText : bottomTextField.text!, image:
-            imageView.image!, memedImage : generate_memedImage())
-        return meme
-    }
     
     
     func textFieldDidBeginEditing(textField: UITextField) {
