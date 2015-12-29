@@ -17,5 +17,11 @@ struct Meme {
     
     func save(){
         UIImageWriteToSavedPhotosAlbum(memedImage, nil,nil,nil)
+
+        // Add it to the memes array in the Application Delegate
+        let object = UIApplication.sharedApplication().delegate
+        let appDelegate = object as! AppDelegate
+        appDelegate.memes.append(self)
+        
     }
 }

@@ -40,6 +40,8 @@ class MemeEditorViewController: UIViewController,UIImagePickerControllerDelegate
         if let meme = self.meme {
             if completed {
                 meme.save()
+                let tableViewController = self.storyboard!.instantiateViewControllerWithIdentifier("TabController")
+                presentViewController(tableViewController, animated: true, completion: nil)
             }
         }
     }
@@ -47,6 +49,7 @@ class MemeEditorViewController: UIViewController,UIImagePickerControllerDelegate
         meme = Meme( topText: topTextField.text!, bottomText : bottomTextField.text!, image:
             imageView.image!, memedImage : generate_memedImage())
         let activityController = UIActivityViewController(activityItems: [meme!.memedImage], applicationActivities: nil)
+        
         activityController.completionWithItemsHandler = shareMemedImageCompletionWithItemsHandler
         presentViewController(activityController, animated: true, completion: nil)
 
