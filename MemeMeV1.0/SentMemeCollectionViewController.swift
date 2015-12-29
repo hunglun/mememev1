@@ -35,7 +35,9 @@ class SentMemeCollectionViewController : UICollectionViewController{
     
     override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         let detailViewController = self.storyboard!.instantiateViewControllerWithIdentifier("DetailViewController") as! DetailViewController
-        detailViewController.imageView?.image = memes[indexPath.row].memedImage
+        
+        detailViewController.receivedImage = memes[indexPath.row].memedImage
+        
         presentViewController(detailViewController, animated: true, completion: nil)
 
 

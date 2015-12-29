@@ -26,13 +26,8 @@ class SentMemeTableViewController : UITableViewController{
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let detailViewController = self.storyboard!.instantiateViewControllerWithIdentifier("DetailViewController") as! DetailViewController
         
-        detailViewController.imageView?.image = memes[indexPath.row].memedImage
-        //TODO: troubleshoot imageView is nil
-        if let _  = detailViewController.imageView {
-            print("image view is not nil")
-        }else {
-            print("image view is nil")
-          }
+        detailViewController.receivedImage = memes[indexPath.row].memedImage
+
         presentViewController(detailViewController, animated: true, completion: nil)
     }
     
