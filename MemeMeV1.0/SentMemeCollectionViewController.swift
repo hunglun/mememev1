@@ -9,6 +9,8 @@
 import UIKit
 
 class SentMemeCollectionViewController : UICollectionViewController{
+
+    @IBOutlet var flowLayout : UICollectionViewFlowLayout!
     
     var memes: [Meme] {
         return (UIApplication.sharedApplication().delegate as! AppDelegate).memes
@@ -20,10 +22,22 @@ class SentMemeCollectionViewController : UICollectionViewController{
     }
     
     override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        let space: CGFloat = 3.0
+        let dimension = (self.view.frame.size.width - (2 * space)) / 3.0
+        
+        flowLayout.minimumInteritemSpacing = space
+        flowLayout.itemSize = CGSizeMake(dimension, dimension)
+    
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "+", style: .Plain, target: self, action: "selectEditController")
     }
     
     override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        let detailViewController = self.storyboard!.instantiateViewControllerWithIdentifier("DetailViewController") as! DetailViewController
+        detailViewController.imageView?.image = memes[indexPath.row].memedImage
+        presentViewController(detailViewController, animated: true, completion: nil)
+
 
     }
     override func collectionView(tableView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
