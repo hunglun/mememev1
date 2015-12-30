@@ -35,6 +35,9 @@ class MemeEditorViewController: UIViewController,UIImagePickerControllerDelegate
         topTextField.text = ""
         bottomTextField.text = ""
         shareButton.enabled = false
+        // an alternative is to dismiss the current view controller.
+        // dismissViewControllerAnimated(true, completion: nil)
+
         let tableViewController = self.storyboard!.instantiateViewControllerWithIdentifier("TabController")
         presentViewController(tableViewController, animated: true, completion: nil)
         
