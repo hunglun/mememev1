@@ -20,25 +20,30 @@ class SentMemeCollectionViewController : UICollectionViewController{
         let editController = self.storyboard!.instantiateViewControllerWithIdentifier("MemeEditorViewController")
         presentViewController(editController, animated: true, completion: nil)
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: "selectEditController")
+
         let space: CGFloat = 3.0
-        let dimension = (self.view.frame.size.width - (2 * space)) / 3.0
-        
+
+        let shorterSide = ( self.view.frame.size.width < self.view.frame.size.height ) ? self.view.frame.size.width : self.view.frame.size.height
+        let longerSide  = ( self.view.frame.size.width > self.view.frame.size.height ) ? self.view.frame.size.width : self.view.frame.size.height
+
+        let width = (shorterSide - (2 * space)) / 3.0
+        let height = (longerSide - (2 * space)) / 4.0
+
         flowLayout.minimumInteritemSpacing = space
-        flowLayout.itemSize = CGSizeMake(dimension, dimension)
+        flowLayout.itemSize = CGSizeMake(width, height)
     
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "+", style: .Plain, target: self, action: "selectEditController")
     }
     
     override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         let detailViewController = self.storyboard!.instantiateViewControllerWithIdentifier("DetailViewController") as! DetailViewController
         
-        detailViewController.receivedImage = memes[indexPath.row].memedImage
+        detailViewController.receivedMeme = memes[indexPath.row]
         
-        presentViewController(detailViewController, animated: true, completion: nil)
+        self.navigationController!.pushViewController(detailViewController, animated: true)
 
 
     }

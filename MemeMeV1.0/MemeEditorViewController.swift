@@ -35,6 +35,9 @@ class MemeEditorViewController: UIViewController,UIImagePickerControllerDelegate
         topTextField.text = ""
         bottomTextField.text = ""
         shareButton.enabled = false
+        let tableViewController = self.storyboard!.instantiateViewControllerWithIdentifier("TabController")
+        presentViewController(tableViewController, animated: true, completion: nil)
+        
     }
     func shareMemedImageCompletionWithItemsHandler(activityType : String?, completed : Bool, items : [AnyObject]?, error : NSError?) {
         if let meme = self.meme {
@@ -81,6 +84,15 @@ class MemeEditorViewController: UIViewController,UIImagePickerControllerDelegate
         topTextField.defaultTextAttributes = memeTextAttributes
         topTextField.textAlignment = .Center
         topTextField.delegate = self
+        
+        imageView.contentMode = .ScaleAspectFit
+
+        
+        if let meme = self.meme {
+            imageView.image = meme.image
+            bottomTextField.text = meme.bottomText
+            topTextField.text = meme.topText
+        }
         
         cameraButton.enabled = UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera)
 

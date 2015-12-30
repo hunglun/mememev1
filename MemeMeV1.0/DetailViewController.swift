@@ -11,17 +11,19 @@ import UIKit
 class DetailViewController : UIViewController {
 
     @IBOutlet var imageView: UIImageView!
-    var receivedImage : UIImage?
+    var receivedMeme : Meme?
     
-    @IBAction func ok() {
-        let tabController = self.storyboard!.instantiateViewControllerWithIdentifier("TabController")
-        presentViewController(tabController, animated: true, completion: nil)
+    func selectEditController(){
+        let editController = self.storyboard!.instantiateViewControllerWithIdentifier("MemeEditorViewController") as! MemeEditorViewController
+        editController.meme = receivedMeme
+
+        presentViewController(editController, animated: true, completion: nil)
     }
 
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-
-        imageView.image = receivedImage
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Edit", style: .Plain, target: self, action: "selectEditController")
+        imageView.image = receivedMeme?.memedImage
     }
         
 }
