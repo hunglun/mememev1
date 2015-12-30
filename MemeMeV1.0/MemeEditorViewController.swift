@@ -39,6 +39,7 @@ class MemeEditorViewController: UIViewController,UIImagePickerControllerDelegate
         presentViewController(tableViewController, animated: true, completion: nil)
         
     }
+    
     func shareMemedImageCompletionWithItemsHandler(activityType : String?, completed : Bool, items : [AnyObject]?, error : NSError?) {
         if let meme = self.meme {
             if completed {
@@ -48,6 +49,7 @@ class MemeEditorViewController: UIViewController,UIImagePickerControllerDelegate
             }
         }
     }
+    
     @IBAction func share(sender: AnyObject) {
         meme = Meme( topText: topTextField.text!, bottomText : bottomTextField.text!, image:
             imageView.image!, memedImage : generate_memedImage())
